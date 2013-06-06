@@ -30,7 +30,7 @@ from DIRAC.WorkloadManagementSystem.Service.JobPolicy import JobPolicy, \
 from DIRAC.Core.Utilities.ClassAd.ClassAdLight import ClassAd
 from DIRAC.FrameworkSystem.Client.ProxyManagerClient import gProxyManager
 from DIRAC.Core.Utilities.ThreadScheduler import gThreadScheduler
-from DIRAC.StorageManagementSystem.Client.StorageManagerClient      import StorageManagerClient
+from DIRAC.StorageManagementSystem.Client.StorageManagerClient import StorageManagerClient
 
 # This is a global instance of the JobDB class
 gJobDB = False

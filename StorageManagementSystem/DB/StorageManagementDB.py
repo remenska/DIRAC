@@ -969,7 +969,7 @@ class StorageManagementDB( DB ):
       if not res['OK']:
         gLogger.error( "%s.%s_DB: problem removing records: %s. %s" % ( self._caller(), 'killTasksBySourceTaskID', req, res['Message'] ) )
       
-      # Finally, remove the Task entries... 
+      # Finally, remove the Task and TaskReplicas entries.
       res = self.removeTasks(taskIDs, connection)
       return res
   
