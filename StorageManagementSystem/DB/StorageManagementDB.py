@@ -362,14 +362,23 @@ class StorageManagementDB( DB ):
       return S_ERROR( 'The supplied task did not exist' )
     return S_OK( resDict )
 
-  def getTaskSummary( self, taskID, connection = False ):
+  def getTaskSummary( self, jobID, connection = False ):
     """ Obtain the task summary from the database. """
     connection = self.__getConnection( connection )
+    # taskID needs to be retrieved from the DIRAC jobID
+    req = "SELECT TaskID from Tasks WHERE SourceTaskID=%s;"  % int( jobID )
+    res = self._query( req )
+    if not res['OK']:
+      gLogger.error( "%s.%s_DB: problem retrieving record: %s. %s" % ( self._caller(), 'getTaskSummary', req, res['Message'] ) )
+    
+    taskID = [ row[0] for row in res['Value'] ] 
     res = self.getTaskInfo( taskID, connection = connection )
     if not res['OK']:
       return res
     taskInfo = res['Value']
     req = "SELECT R.LFN,R.SE,R.PFN,R.Size,R.Status,R.Reason FROM CacheReplicas AS R, TaskReplicas AS TR WHERE TR.TaskID = %s AND TR.ReplicaID=R.ReplicaID;" % taskID
+    # new query!
+    # req = "SELECT R.LFN,R.SE,R.PFN,R.Size,R.Status,R.Reason, SR.PinLength, SR.PinExpiryTime FROM CacheReplicas AS R, TaskReplicas AS TR, StageRequests as SR WHERE TR.TaskID = %s AND TR.ReplicaID=R.ReplicaID and SR.ReplicaID = TR.ReplicaID and R.ReplicaID = SR.ReplicaID;" % taskID
     res = self._query( req, connection )
     if not res['OK']:
       gLogger.error( 'StorageManagementDB.getTaskSummary: Failed to get Replica summary for task.', res['Message'] )
