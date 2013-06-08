@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 ########################################################################
 # $HeadURL$
-# File :    dirac-stager-monitor-jobs
+# File :    dirac-stager-monitor-file
 # Author :  Daniela Remenska
 
 ########################################################################
@@ -86,3 +86,22 @@ else:
   print 'No information exists in the stager! Check for typos. Could be that the file staging request is not made yet.'  
 
 DIRAC.exit( 0 )
+
+'''
+Example
+--------------------
+LFN     : /lhcb/LHCb/Collision12/FULL.DST/00020846/0004/00020846_00044909_1.full.dst                          
+SE      : GRIDKA-RDST                                                                                         
+PFN     : srm://gridka-dCache.fzk.de/pnfs/gridka.de/lhcb/LHCb/Collision12/FULL.DST/00020846/0004/00020846_00044909_1.full.dst
+Status  : Staged                                                                                              
+Reason  : None                                                                                                
+LastUpdate: 2013-06-01 05:11:37                                                                                 
+Jobs requesting this file to be staged: 48443766 
+------SRM staging request info--------------
+SRM RequestID: -1791307466                                                                                         
+SRM StageStatus: Staged                                                                                              
+SRM StageRequestSubmitTime: 2013-06-01 04:55:11                                                                                 
+SRM StageRequestCompletedTime: 2013-06-01 05:11:37                                                                                 
+SRM PinExpiryTime: 2013-06-01 07:11:37                                                                                 
+SRM PinLength: 86400 
+'''

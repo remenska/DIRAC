@@ -56,3 +56,24 @@ for jobID in jobIDs:
   outStr = "%s\n----------------------" % outStr
   print outStr
 DIRAC.exit( 0 )
+
+''' Example:
+JobID               : 5384634
+Status              : StageSubmitted
+SubmitTime          : 2013-05-14 14:25:19
+CompleteTime        : None
+Staging files for this job:
+    --------------------
+    LFN     : /lhcb/LHCb/Collision12/FULL.DST/00020846/0006/00020846_00060073_1.full.dst                          
+    SE      : GRIDKA-RDST                                                                                         
+    PFN     : srm://gridka-dCache.fzk.de/pnfs/gridka.de/lhcb/LHCb/Collision12/FULL.DST/00020846/0006/00020846_00060073_1.full.dst
+    Status  : StageSubmitted                                                                                      
+    Reason  : None                                                                                                
+    --------------------
+    LFN     : /lhcb/LHCb/Collision12/FULL.DST/00020846/0002/00020846_00024661_1.full.dst                          
+    SE      : GRIDKA-RDST                                                                                         
+    PFN     : srm://gridka-dCache.fzk.de/pnfs/gridka.de/lhcb/LHCb/Collision12/FULL.DST/00020846/0002/00020846_00024661_1.full.dst
+    Status  : Staged                                                                                              
+    Reason  : None                                                                                                                                                                                          
+----------------------                                                                                                  
+'''
