@@ -21,11 +21,11 @@ Script.parseCommandLine( ignoreErrors = False )
 
 args = Script.getPositionalArgs()
 
-if not len( args ) < 2:
+if len( args ) < 1:
   Script.showHelp()
 
 try:
-  jobIDs = [int( arg ) for arg in sys.argv[1:]]
+  jobIDs = [int( arg ) for arg in args]
 except:
   print 'DIRAC Job IDs must be integers'
   DIRAC.exit( 2 )

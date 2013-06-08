@@ -29,7 +29,7 @@ Script.parseCommandLine( ignoreErrors = False )
 
 args = Script.getPositionalArgs()
 
-if not len( args ) != 2:
+if len( args ) != 2:
   Script.showHelp()
 else:
   lfn = args[0]
