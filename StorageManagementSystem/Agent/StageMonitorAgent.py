@@ -122,7 +122,7 @@ class StageMonitorAgent( AgentModule ):
       if not res['OK']:
         gLogger.error( "StageMonitor.__monitorStorageElementStageRequests: Failed to insert replica status.", res['Message'] )
     if oldRequests:
-      gLogger.info( "StageMonitor.__monitorStorageElementStageRequests: %s old requests will be retried." % len( oldRequests ) )
+      gLogger.info( "StageMonitor.__monitorStorageElementStageRequests: %s submitted requests are still not staged." % len( oldRequests ) )
       res = self.__wakeupOldRequests( oldRequests )
       if not res['OK']:
         gLogger.error( "StageMonitor.__monitorStorageElementStageRequests: Failed to wakeup old requests.", res['Message'] )

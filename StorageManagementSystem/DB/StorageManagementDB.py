@@ -872,7 +872,7 @@ class StorageManagementDB( DB ):
 
   def wakeupOldRequests( self, replicaIDs , retryInterval, connection = False ):
     """
-    get only StageRequests with StageRequestSubmitTime older than 1 day AND are still not staged
+    get only StageRequests with StageRequestSubmitTime older than <retryInterval> hours AND are still not staged
     delete these requests
     reset Replicas with corresponding ReplicaIDs to Status='New'
     """
@@ -892,7 +892,7 @@ class StorageManagementDB( DB ):
         return res
 
       old_replicaIDs = [ row[0] for row in res['Value'] ]
-
+      gLogger.info( "%s old requests will be reset to NEW " %len( old_replicaIDs) )
       if len( old_replicaIDs ) > 0:
         req = "UPDATE CacheReplicas SET Status='New' WHERE ReplicaID in (%s);" % intListToString( old_replicaIDs )
         res = self._update( req, connection )
