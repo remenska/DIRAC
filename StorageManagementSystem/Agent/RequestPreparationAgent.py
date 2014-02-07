@@ -56,7 +56,7 @@ class RequestPreparationAgent( AgentModule ):
     failed = res['Value']['Failed']
     if not exist:
       gLogger.error( 'RequestPreparation.prepareNewReplicas: Failed determine existance of any files' )
-      return S_OK()
+      #return S_OK()
     terminalReplicaIDs = {}
     for lfn, reason in terminal.items():
       for se, replicaID in replicas[lfn].items():
