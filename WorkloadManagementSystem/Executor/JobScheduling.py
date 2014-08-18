@@ -396,7 +396,12 @@ class JobScheduling( OptimizerExecutor ):
                                  source = self.ex_optimizerName() )
     if not result[ 'OK' ]:
       return result
-
+    
+    result = jobState.commitChanges()
+    if not result[ 'OK' ]:
+      cls.log.error( "Cannot write changes to job %s: %s" % ( jobState.jid, result[ 'Message' ] ) )
+      return result
+  
     result = stagerClient.setRequest( stageLFNs, 'WorkloadManagement',
                                       'updateJobFromStager@WorkloadManagement/JobStateUpdate',
                                       int( jobState.jid ) )
