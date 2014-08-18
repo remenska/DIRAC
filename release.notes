@@ -1,14 +1,25 @@
-[v6r12-pre3]
+[v6r12-pre8]
 
 *Core
 CHANGE: ProcessPool - do not stop working processes by default
 NEW: ReturnValue - added returnSingleResult() utility 
+FIX: MySQL - correctly parse BooleanType
+FIX: dirac-install - use python 2.7 by default
+NEW: dirac-configure - added --SkipVOMSDownload switch, added --Output switch
+     to define output configuration file
+CHANGE: ProcessPool - exit from the working process if a task execution timed out     
 
 *Accounting
 NEW: Allow to have more than one DB for accounting
+CHANGE: Accounting - use TypeLoader to load plotters
 
 *Framework
 FIX: Logger - fix FileBackend implementation
+
+*WMS
+NEW: Refactored pilots ( dirac-pilot-2 ) to become modular following RFC #18, 
+     added pilotCommands.py, SiteDirector modified accordingly 
+CHANGE: InputData(Executor) - use VO specific catalogs      
 
 *Resources
 NEW: StorageElement - added a cache of already created SE objects
@@ -17,7 +28,12 @@ CHANGE: SSHTorqueComputingElement - mv getCEStatus to remote script
 *ResourceStatus
 NEW: ResourceManagementClient/DB, DowntimeCommand - distinguish Disk and Tape storage 
 
-*DMS: DataManager - add masterCatalogOnly flag in the constructor
+*DMS
+NEW: DataManager - add masterCatalogOnly flag in the constructor
+FIX: DataManager - fix to protect against non valid SE
+CHANGE: FC.DirectoryLevelTree - use SELECT ... FOR UPDATE lock in makeDir()
+FIX: FileCatalog - fixes in using file and replica status
+CHANGE: DataManager - added a new argument to the constructor - vo
 
 *RMS
 NEW: Added 'since' and 'until' parameters for getting requests
@@ -25,6 +41,91 @@ NEW: Request - added optimize() method to merge similar operations when
      first inserting the request
 NEW: ReqClient, RequestDB - added getBulkRequest() interface. RequestExecutingAgent
      can use it controlled by a special flag     
+FIX: Operation, Request - set LastUpdate time stamp when reaching final state
+FIX: OperationHandlerBase - don't erase the original message when reaching the max attempts      
+FIX: removed some deprecated codes
+FIX: RequestTask - always set useServerCerificate flag to tru in case of executing inside
+     an agent
+
+*TMS
+NEW: WorkflowTaskAgent is now multi-threaded
+NEW: Better use of threads in Transformation Agents
+CHANGE: TransformationDB - modified such that the body in a transformation can be updated
+
+[v6r11p8]
+
+*TMS
+FIX: TransformationDB - fix default value within ON DUPLICATE KEY UPDATE mysql statement
+
+[v6r11p7]
+
+*Framework
+BUGFIX: ProxyDB.py - bug in a MySQL table definition
+
+*DMS
+FIX: ReplicateAndRegister.py - FTS client is not instantiated in the c'tor as it 
+     might not be used, 
+
+*WMS
+FIX: JobWrapper - don't delete the sandbox tar file if upload fails
+FIX: JobWrapper - fix in setting the failover request
+
+*RMS
+FIX: RequestDB - add protections when trying to get a non existing request
+
+[v6r11p6]
+
+*WMS
+FIX: InpudDataResolution - fix the case when some files only have a local replica
+FIX: DownloadInputData, InputDataByProtocol - fix the return structure of the
+     execute() method
+     
+*Resources
+NEW: LocalComputingElement, CondorComputingElement      
+
+[v6r11p5]
+
+FIX: Incorporated changes from v6r10p25 patch
+
+*Framework
+NEW: Added getUserProfileNames() interface
+
+*WMS
+NEW: WMSAdministrator - added getPilotStatistics() interface
+BUGFIX: JobWrapperTemplate - use sendJobAccounting() instead of sendWMSAccounting()
+FIX: JobCleaningAgent - skip if no jobs to remove
+
+*DMS
+BUGFIX: FileCatalogClientCLI - bug fix in the metaquery construction
+
+*Resources
+CHANGE: StorageElement - enable Storage Element proxy configuration by protocol name
+
+*TMS
+NEW: TransformationManager - add Scheduled to task state for monitoring
+
+[v6r11p4]
+
+*Framework
+NEW: ProxyDB - added primary key to ProxyDB_Log table
+CHANGE: ProxyManagerHandler - purge logs once in 6 hours
+
+*DMS
+FIX: DataManager - fix in the accounting report for deletion operation
+CHANGE: FTSRequest - print FTS GUID when submitting request
+FIX: dirac-dms-fts-monitor - fix for using the new FTS structure
+FIX: DataLoggingDB - fix type of the StatusTimeOrder field
+FIX: DataLoggingDB - take into account empty date argument in addFileRecord()
+FIX: ReplicateAndRegister - use active replicas
+FIX: FTS related modules - multiple fixes
+
+*WMS
+NEW: SiteDirector - pass the list of already registered pilots to the CE.available() query
+FIX: JobCleaningAgent - do not attempt job removal if no eligible jobs
+
+*Resources
+FIX: LcgFileCatalogClient - if replica already exists while registration, reregister
+NEW: CREAM, SSH, ComputingElement - consider only registered pilots to evaluate queue occupancy
 
 [v6r11p3]
 
@@ -135,6 +236,16 @@ FIX: RequestTask - always execute operations with owner proxy
 
 *SMS
 FIX: few minor fixes to avoid pylint warnings
+
+[v6r10p25]
+
+*DMS
+CHANGE: FileCatalog - optimized file selection by metadata
+
+[v6r10p24]
+
+*DMS
+FIX: FC.FileMetadata - optimized queries for list interception evaluation
 
 [v6r10p23]
 
